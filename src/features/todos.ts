@@ -1,29 +1,13 @@
-/* eslint-disable no-param-reassign */
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { Todo } from '../types/Todo';
-
-export interface TodosState {
-  todos: Todo[];
-  loading: boolean;
-}
-
-const initialState: TodosState = {
-  todos: [],
-  loading: true,
-};
 
 export const todosSlice = createSlice({
   name: 'todos',
-  initialState,
+  initialState: [] as Todo[],
   reducers: {
-    setTodos: (state, action: PayloadAction<Todo[]>) => {
-      state.todos = action.payload;
-    },
-    setLoading: (state, action: PayloadAction<boolean>) => {
-      state.loading = action.payload;
-    },
+    setTodos: (_state, action) => action.payload,
+    clearTodos: () => [],
   },
 });
 
-export const { setTodos, setLoading } = todosSlice.actions;
-export default todosSlice.reducer;
+export const { setTodos, clearTodos } = todosSlice.actions;

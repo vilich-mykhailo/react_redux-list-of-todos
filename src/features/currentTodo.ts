@@ -3,43 +3,28 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Todo } from '../types/Todo';
 import { User } from '../types/User';
 
-type CurrentState = {
-  todo: Todo | null;
-  user: User | null;
-  isOpen: boolean;
-  isUserLoading: boolean;
-};
+export interface CurrentTodoState {
+  currentTodo: Todo | null;
+  currentUser: User | null;
+}
 
-const initialState: CurrentState = {
-  todo: null,
-  user: null,
-  isOpen: false,
-  isUserLoading: false,
+const initialState: CurrentTodoState = {
+  currentTodo: null,
+  currentUser: null,
 };
 
 export const currentTodoSlice = createSlice({
   name: 'currentTodo',
   initialState,
   reducers: {
-    openWith: (state, action: PayloadAction<Todo>) => {
-      state.todo = action.payload;
-      state.user = null;
-      state.isOpen = true;
+    setCurrentTodo: (state, action: PayloadAction<Todo | null>) => {
+      state.currentTodo = action.payload;
     },
-    setUserLoading: (state, action: PayloadAction<boolean>) => {
-      state.isUserLoading = action.payload;
-    },
-    setUser: (state, action: PayloadAction<User | null>) => {
-      state.user = action.payload;
-    },
-    close: state => {
-      state.isOpen = false;
-      state.todo = null;
-      state.user = null;
-      state.isUserLoading = false;
+    setCurrentUser: (state, action: PayloadAction<User | null>) => {
+      state.currentUser = action.payload;
     },
   },
 });
 
-export const { openWith, setUserLoading, setUser, close } =
-  currentTodoSlice.actions;
+export const { setCurrentUser, setCurrentTodo } = currentTodoSlice.actions;
+export default currentTodoSlice.reducer;

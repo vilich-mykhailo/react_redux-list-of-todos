@@ -1,12 +1,11 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Status } from '../types/Status';
 
-export type FilterStatus = 'all' | 'active' | 'completed';
-
-type FilterState = {
+export interface FilterState {
   query: string;
-  status: FilterStatus;
-};
+  status: Status;
+}
 
 const initialState: FilterState = {
   query: '',
@@ -20,15 +19,11 @@ export const filterSlice = createSlice({
     setQuery: (state, action: PayloadAction<string>) => {
       state.query = action.payload;
     },
-    clearQuery: state => {
-      state.query = '';
-    },
-    setStatus: (state, action: PayloadAction<FilterStatus>) => {
+    setStatus: (state, action: PayloadAction<Status>) => {
       state.status = action.payload;
     },
   },
 });
 
-export const { setQuery, clearQuery, setStatus } = filterSlice.actions;
-
+export const { setQuery, setStatus } = filterSlice.actions;
 export default filterSlice.reducer;
